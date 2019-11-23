@@ -36,7 +36,7 @@
     ```js
     app.message = '我是董董'
     ```
-    - 有没有发现这里是直接 app.message 呀？怎么不是 app.data.message 呢？中间隔了一个 data 难道不要吗？对啦，**data 里面的数据，可以直接通过 app 获取**哒，比如 app.message。**但是如果不是 data 里面的东西，就不可以这样获取**了哦，后面会说到的。这一点要记住哦！
+    - 有没有发现这里是直接 app.message 呀？怎么不是 app.data.message 呢？中间隔了一个 data 难道不要吗？对啦，**data 里面的数据，可以直接通过 app 获取**哒，比如 app.message。这一点要记住哦！
 
 2. 绑定元素特性( v-bind )  
    ```html
