@@ -11,11 +11,11 @@
   ```js
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   ```
-- 上面是 Vue2 版本，如果要用最新版，就去官网
+- 上面是 Vue2 版本，如果要用最新版，就去官网找一找
 
 # 用 NPM 安装 Vue
 ```js
-    npm install vue  // 这会安装最新稳定版
+  npm install vue  // 这会安装最新稳定版
 ```
 
 # 命令行工具(CLI) - 后面补上
