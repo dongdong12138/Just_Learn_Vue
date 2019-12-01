@@ -159,6 +159,73 @@
   - updated
   - beforeDestroy
   - destroyed
-- 这些钩子又有什么用呢？（也要背的哦）
+- 这些钩子又有什么用呢？下面分成 4 组来简单介绍，一定要理解哦！
+    ```js
+    new Vue({
+        
+        1. 创建：比如做房子，要先把地基做好
+        beforeCreate() {  // 创建前
+            // 在 Vue 实例创建以前，可以做一些基础的工作，比如 loading
+        },
+        created() {  // 创建后
+            // Vue 实例创建以后，data 已经有了，但是还没有 $el
+            // 在这里，你可以请求一些数据，为 mounted 做准备
+        },
+
+        2. 挂载
+        beforeMount() {  // 挂载前
+            // vue 实例的 $el 和 data 都初始化了，但还是虚拟的 dom 节点
+            // 也就是说，在这里，还没有办法去操作 DOM
+        },
+        mounted() {  // 挂载后
+            // Vue 实例已经被挂载到页面上，这里就可以开始操作 DOM 了
+        },
+
+        3. 更新：一般来说，页面中的数据不会是死的，它是会发生变化的
+        beforeUpdate() {  // 更新前
+            // 在数据( data )更新之前做的一些操作，在这里可以访问现有的 DOM
+            // 比如手动移除已添加的事件监听器
+        },
+        updated() {  // 更新后
+            // 数据更新以后做的操作，比如把新数据重新渲染到 DOM 中
+        },
+
+        4. 销毁：就像我们需要打扫房间，如果不打扫，房间就太乱太杂了
+        beforeDestroy() {  // 销毁前
+            // 实例销毁之前调用，在这里，Vue 实例还可以正常使用
+        },
+        destroyed() {// 销毁后
+            // 实例销毁之后调用，在这里，Vue 解除了事件监听，以及和 DOM 的绑定（无响应了），但是 DOM 节点依然存在
+        }  
+    })
+    ```
+- 有一点需要注意：不要在选项属性或回调上使用箭头函数，因为箭头函数没有 this ，那么 this 就会一级一级向上查找，直到找到为止，所以可能会导致一些错误。
+    ```js
+    var vm = new Vue({
+        // 错误
+        created: () => {
+            console.log(this.a)  // this 不指向 vm 这个 Vue 实例
+        },
+
+        // 正确
+        created: function () {   // ES5 写法
+            console.log(this.a)  // this 指向 vm
+        },
+        created() {              // ES6 写法
+            console.log(this.a)  // this 指向 vm
+        }
+    })
+    ```
+    ```js
+    // 错误
+    vm.$watch('a', newValue => this.myMethods())  // this 不指向 vm
+    
+    // 正确
+    vm.$watch('a', function (newValue) {
+        this.myMethods()  // this 指向 vm
+    })
+    ```
 
 ## 生命周期图示
+下面这张图现在不用看懂，随便看看就行，以后慢慢就懂了！  
+![生命周期图示](./lifecycle.png)
